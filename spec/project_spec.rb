@@ -1,15 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
 require 'report'
-require 'report_spec_helper'
 require 'project'
 
 describe Project do
-  include ReportSpecHelper
-  
+
   before(:each) do
     prepare_report
     @report.file
-    @project = @report.projects.detect {|name, project| name == "project1" }.last
+    @project = @report.projects.detect {|name, project| name == "project1" }
+    @project.size.should == 2
+    @project =@project.last
   end
 
   describe "summary" do
@@ -29,7 +29,7 @@ describe Project do
     end
 
     it "should include the total hours" do
-      @report.summary.should include("Total hours: 5.72")
+      @project.summary.should include("Total hours: 4.96")
     end
   end
 end

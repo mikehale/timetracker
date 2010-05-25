@@ -1,16 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
 require 'report'
-require 'report_spec_helper'
-
-class Time
-  def self.now
-    Time.local(2008, 8, 1, 0, 0, 0, 0)
-  end
-end
 
 describe Report do
-  include ReportSpecHelper
-  
+
   before(:each) do
     prepare_report
   end

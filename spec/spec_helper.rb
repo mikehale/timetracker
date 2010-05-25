@@ -4,7 +4,6 @@ $LOAD_PATH << "#{dir}/../lib"
 require 'rubygems'
 require 'spec'
 require 'rr'
-require 'timecop'
 
 Spec::Runner.configure do |config|
   config.mock_with :rr
@@ -19,5 +18,18 @@ ensure
     ENV.replace(old_env)
   rescue Exception => e
     raise
+  end
+end
+
+class Time
+  def self.now
+    Time.local(2008, 8, 1, 0, 0, 0, 0)
+  end
+end
+
+def prepare_report
+  with_env do
+    ENV['HOME'] = File.expand_path(File.dirname(__FILE__))
+    @report = Report.new
   end
 end

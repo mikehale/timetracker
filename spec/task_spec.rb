@@ -1,10 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
 require 'report'
-require 'report_spec_helper'
 require 'task'
 
 describe Task do
-  include ReportSpecHelper
   
   before(:each) do
     prepare_report
