@@ -29,7 +29,7 @@ describe Project do
     end
 
     it "should include the total hours" do
-      @project.summary.should include("Total hours: 4.96")
+      @project.summary.should match /Total hours:\s+4.96/
     end
   end
 end
