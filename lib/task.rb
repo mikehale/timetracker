@@ -1,5 +1,6 @@
 class Task
   attr_reader :duration
+  COLUMN_WIDTH = 6
   
   def initialize(name, duration)
     @name = name
@@ -11,6 +12,6 @@ class Task
   end
   
   def summary
-    "#{@name}: #{@duration.value.to_s.rjust(5)}"
+    "#{@name}: #{@duration.value.to_s.rjust(COLUMN_WIDTH)}"
   end
 end
