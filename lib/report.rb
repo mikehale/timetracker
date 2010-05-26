@@ -3,9 +3,11 @@ require 'fastercsv'
 require 'time'
 require 'active_support'
 
+require File.expand_path(File.dirname(__FILE__) + '/string_extensions')
 require File.expand_path(File.dirname(__FILE__) + '/project')
 require File.expand_path(File.dirname(__FILE__) + '/task')
 require File.expand_path(File.dirname(__FILE__) + '/duration')
+require File.expand_path(File.dirname(__FILE__) + '/day')
 
 class Report
   attr_reader :file, :projects
@@ -25,14 +27,16 @@ class Report
   
   def parse(file)
     @projects = {}
-
+    
     FasterCSV.foreach(file, :col_sep => ";", :headers => true) do |row|
       next unless task_from_last_month?(row["Date"])
       
       project_name = row["Project"]
       project = @projects[project_name]
-      @projects[project_name] = project = Project.new(project_name) unless project
-      project.add_task(row["Task"], row["Duration"])
+      unless project
+        @projects[project_name] = project = Project.new(project_name)
+      end
+      project.add_or_update_day(Time.parse(row["Date"]), row["Task"], row["Duration"])
     end
   end
   

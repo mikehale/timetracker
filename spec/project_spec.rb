@@ -9,7 +9,7 @@ describe Project do
     @report.file
     @project = @report.projects.detect {|name, project| name == "project1" }
     @project.size.should == 2
-    @project =@project.last
+    @project = @project.last
   end
 
   describe "summary" do
@@ -17,8 +17,8 @@ describe Project do
       @project.summary.should include("Project: project1")
     end
     
-    it "should have the correct number of tasks" do
-      @project.tasks.should have(4).things
+    it "should have the correct number of days" do
+      @project.days.should have(4).things
     end
 
     it "should list the tasks for each project" do

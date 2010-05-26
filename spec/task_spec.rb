@@ -7,7 +7,7 @@ describe Task do
   before(:each) do
     prepare_report
     project = @report.projects.detect {|name, project| name == "project1" }.last
-    @task = project.tasks.values.first
+    @task = project.days.first.tasks.first
   end
 
   describe "summary" do
@@ -17,6 +17,6 @@ describe Task do
   end
   
   it "should have the correct duration" do
-    @task.duration.value.should == 2.2
+    @task.duration.value.should == 0.51
   end
 end

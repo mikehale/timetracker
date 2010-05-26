@@ -1,7 +1,7 @@
 class Duration
   attr_reader :hours, :minutes, :seconds
   
-  def initialize(duration_string)
+  def initialize(duration_string='00:00:00')
     @hours, @minutes, @seconds = duration_string.split(":").map{|e| e.to_f}
   end
   

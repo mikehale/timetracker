@@ -1,5 +1,5 @@
 class Task
-  attr_reader :duration
+  attr_reader :name, :duration
   COLUMN_WIDTH = 6
   
   def initialize(name, duration)

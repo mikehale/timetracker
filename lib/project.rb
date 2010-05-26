@@ -1,30 +1,35 @@
 class Project
-  attr_reader :name, :tasks
+  attr_reader :name, :days
   REPORT_WIDTH = 120
   
   def initialize(name)
     @name = name
-    @tasks = {}
+    @days = []
   end
   
-  def add_task(task_name, duration)
-    task = tasks[task_name]
-    if task
-      task.update_duration(duration)
+  def add_or_update_day(date, task_name, duration_string)
+    day = @days.detect {|day| day.date == date }
+    unless day
+      @days << Day.new(date, Task.new(task_name, duration_string))
     else
-      tasks[task_name] = Task.new(task_name, duration)
+      day.add_task(task_name, duration_string)
+    end
+  end
+  
+  def total_hours
+    days.inject(0.0) do |total, day|
+      total += day.hours_worked
     end
   end
   
   def summary
-    total_hours = tasks.values.inject(0.0) do |total_hours, task|
-      total_hours += task.duration.value
-    end
-    total_line = "Total hours: #{total_hours.to_s.rjust(Task::COLUMN_WIDTH)}"
+    total_line = "Total hours: #{total_hours.to_s.rjust(6)}"
 %(
 Project: #{@name}
-#{@tasks.values.map{|e| e.summary.rjust(REPORT_WIDTH) + "\n"} }
-#{total_line.rjust(REPORT_WIDTH)}
+Date #{'Hours'.rjust(14)} Task(s)
+#{"".rjust(REPORT_WIDTH, "-")}
+#{days.map{|e| e.summary + "\n"} }
+#{total_line}
 #{"".rjust(REPORT_WIDTH, "=")}
 )
   end
