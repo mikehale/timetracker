@@ -16,6 +16,9 @@ class Report
     parse(@file)
   end
   
+  def project_filter
+  end
+  
   def period
     1.month.ago
   end
@@ -30,6 +33,7 @@ class Report
     
     FasterCSV.foreach(file, :col_sep => ";", :headers => true) do |row|
       next unless task_from_last_month?(row["Date"])
+      next if project_filter && !(row["Project"] =~ project_filter)
       
       project_name = row["Project"]
       project = @projects[project_name]
