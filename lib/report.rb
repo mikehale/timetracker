@@ -20,12 +20,12 @@ class Report
   end
   
   def period
-    1.month.ago
+    2.months.ago.at_beginning_of_month..1.month.ago.at_end_of_month
   end
   
   def task_from_last_month?(date_string)
     task_time = Time.parse(date_string)
-    task_time.year == period.year && task_time.month == period.month
+    period.include?(task_time)
   end
   
   def parse(file)
@@ -46,7 +46,7 @@ class Report
   
   def summary
 %(
-Report for time period: #{period.strftime('%B')} #{period.strftime('%Y')}
+Report for time period: #{period.first.strftime('%B %Y')} - #{period.last.strftime('%B %Y')}
 #{projects.values.map{|p| p.summary }.join("\n")}
 )
   end
