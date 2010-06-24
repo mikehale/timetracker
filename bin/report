@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require "#{File.expand_path(File.dirname(__FILE__) + "/../lib/report")}"
+
+require 'rubygems'
+require 'thor'
+
+class ReportRunner < Thor
+  desc "last_month [PROJECT_NAME]", "report for work done last month"
+  def last_month(project_filter='')
+    print Report.new(
+    :project_filter => Regexp.new(project_filter),
+    :time_period => :last_month
+    ).summary
+  end
+
+  desc "this_month [PROJECT_NAME]", "report of work done this month"
+  def month_to_date(project_filter='')
+    print Report.new(
+    :project_filter => Regexp.new(project_filter),
+    :time_period => :this_month
+    ).summary
+  end
+
+  desc "this_year [PROJECT_NAME]", "report of work done this year"
+  def year_to_date(project_filter='')
+    print Report.new(
+    :project_filter => Regexp.new(project_filter),
+    :time_period => :this_year
+    ).summary
+  end
+  
+  desc "adhoc period [PROJECT_NAME]", "adhoc report"
+  def adhoc(period, project_filter='')
+    print Report.new(
+    :project_filter => Regexp.new(project_filter),
+    :time_period => period
+    ).summary
+  end
+end
+
+ReportRunner.start
