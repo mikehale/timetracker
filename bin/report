@@ -13,7 +13,7 @@ class ReportRunner < Thor
   end
 
   desc "this_month [PROJECT_NAME]", "report of work done this month"
-  def month_to_date(project_filter='')
+  def this_month(project_filter='')
     print Report.new(
     :project_filter => Regexp.new(project_filter),
     :time_period => :this_month
@@ -21,14 +21,14 @@ class ReportRunner < Thor
   end
 
   desc "this_year [PROJECT_NAME]", "report of work done this year"
-  def year_to_date(project_filter='')
+  def this_year(project_filter='')
     print Report.new(
     :project_filter => Regexp.new(project_filter),
     :time_period => :this_year
     ).summary
   end
   
-  desc "adhoc period [PROJECT_NAME]", "print an report for an adhoc time period. ex: adhoc 'last month to this week monday'"
+  desc "adhoc period [PROJECT_NAME]", "report for an adhoc time period. ex: adhoc 'last month to this week monday'"
   def adhoc(period, project_filter='')
     print Report.new(
     :project_filter => Regexp.new(project_filter),

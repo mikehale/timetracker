@@ -22,7 +22,6 @@ class Report
   def period
     case @time_period
     when :last_month
-      puts 1.months.ago.at_beginning_of_month.inspect
       1.months.ago.at_beginning_of_month..1.month.ago.at_end_of_month
     when :this_month
       0.months.ago.at_beginning_of_month..0.months.ago.at_end_of_month
