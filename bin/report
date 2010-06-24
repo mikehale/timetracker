@@ -30,7 +30,7 @@ class ReportRunner < Thor
     ).summary
   end
   
-  desc "adhoc period [PROJECT_NAME]", "adhoc report"
+  desc "adhoc period [PROJECT_NAME]", "print an report for an adhoc time period. ex: adhoc 'last month to this week monday'"
   def adhoc(period, project_filter='')
     print Report.new(
     :project_filter => Regexp.new(project_filter),
